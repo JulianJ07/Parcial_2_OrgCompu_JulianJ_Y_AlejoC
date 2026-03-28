@@ -1,0 +1,58 @@
+// --------------------------------------------
+// Programa: Raíz cuadrada entera en Hack ASM
+// Entrada:  R1 = n
+// Salida:   R3 = floor(sqrt(n))
+// Método: resta sucesiva de números impares
+// --------------------------------------------
+
+// R2 = copia de n (valor restante)
+@R1
+D=M
+@R2
+M=D
+
+// R3 = resultado x (inicialmente 0)
+@R3
+M=0
+
+// R4 = número impar actual (empieza en 1)
+@1
+D=A
+@R4
+M=D
+
+
+(LOOP)
+
+// si restante < impar → terminar
+@R2
+D=M
+@R4
+D=D-M
+@END
+D;JLT
+
+// restante = restante - impar
+@R4
+D=M
+@R2
+M=M-D
+
+// x = x + 1
+@R3
+M=M+1
+
+// impar = impar + 2
+@R4
+M=M+1
+@R4
+M=M+1
+
+@LOOP
+0;JMP
+
+
+(END)
+// bucle final para detener programa
+@END
+0;JMP
